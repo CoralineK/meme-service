@@ -8,6 +8,9 @@ import {
 } from "@material-ui/core";
 import { ThumbDownRounded, ThumbUpRounded } from "@material-ui/icons";
 
+// import { addUpvote, selectUpvote } from "../../redux/reducer";
+import { useDispatch, useSelector } from "react-redux";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
@@ -45,9 +48,16 @@ export default function Meme({
   handleDownvoteClick,
 }: Props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  // const upvotes = useSelector(selectUpvote);
 
   return (
     <Card className={classes.card}>
+      {/* <div>
+        <button onClick={() => dispatch(addUpvote())}>upvote</button>
+        <p>{upvotes}</p>
+      </div> */}
       <CardHeader title={name} />
       <CardMedia className={classes.media} image={url} title={name} />
       <CardActions className={classes.actions}>

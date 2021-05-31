@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Meme from "./Meme";
-import { MemeType } from "../types";
+import { MemeType, VoteType } from "../../types";
 
 const Container = styled.div`
   margin-top: 30px;
@@ -8,8 +8,8 @@ const Container = styled.div`
 
 type Props = {
   memes: MemeType[];
-  handleUpvoteClick: (meme: MemeType) => void;
-  handleDownvoteClick: (meme: MemeType) => void;
+  handleUpvoteClick: ({ meme, vote }: VoteType) => void;
+  handleDownvoteClick: ({ meme, vote }: VoteType) => void;
 };
 
 export default function Memes({
@@ -27,8 +27,12 @@ export default function Memes({
             name={meme.name}
             upvote={meme.upvote}
             downvote={meme.downvote}
-            handleUpvoteClick={() => handleUpvoteClick(meme)}
-            handleDownvoteClick={() => handleDownvoteClick(meme)}
+            handleUpvoteClick={() =>
+              handleUpvoteClick({ meme, vote: "upvote" })
+            }
+            handleDownvoteClick={() =>
+              handleDownvoteClick({ meme, vote: "downvote" })
+            }
           />
         ))}
     </Container>
