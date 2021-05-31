@@ -1,8 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import memesReducer from "./reducer";
 
+const rootReducer = combineReducers({
+  memes: memesReducer,
+})
+
 export const store = configureStore({
-  reducer: {
-    memes: memesReducer,
-  },
+  reducer: rootReducer
 });
+
+export type RootState = ReturnType<typeof rootReducer>;

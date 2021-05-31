@@ -7,9 +7,10 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { ThumbDownRounded, ThumbUpRounded } from "@material-ui/icons";
+import { MemeType } from "../../types";
+import { addUpvote, addDownvote } from "../../redux/reducer";
+import { useDispatch } from "react-redux";
 
-// import { addUpvote, selectUpvote } from "../../redux/reducer";
-import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,44 +32,26 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type Props = {
-  name: string;
-  url: string;
-  upvote: number;
-  downvote: number;
-  handleUpvoteClick: () => void;
-  handleDownvoteClick: () => void;
+  meme: MemeType;
 };
 
-export default function Meme({
-  name,
-  url,
-  upvote,
-  downvote,
-  handleUpvoteClick,
-  handleDownvoteClick,
-}: Props) {
+export default function Meme({ meme }: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  // const upvotes = useSelector(selectUpvote);
-
   return (
     <Card className={classes.card}>
-      {/* <div>
-        <button onClick={() => dispatch(addUpvote())}>upvote</button>
-        <p>{upvotes}</p>
-      </div> */}
-      <CardHeader title={name} />
-      <CardMedia className={classes.media} image={url} title={name} />
+      <CardHeader title={meme.name} />
+      <CardMedia className={classes.media} image={meme.url} title={meme.name} />
       <CardActions className={classes.actions}>
-        <IconButton onClick={handleUpvoteClick}>
+        <IconButton onClick={() => dispatch(addUpvote(meme.id))}>
           <ThumbUpRounded />
         </IconButton>
-        <p>{upvote}</p>
-        <IconButton onClick={handleDownvoteClick}>
+        <p>{meme.upvote}</p>
+        <IconButton onClick={() => dispatch(addDownvote(meme.id))}>
           <ThumbDownRounded />
         </IconButton>
-        <p>{downvote}</p>
+        <p>{meme.downvote}</p>
       </CardActions>
     </Card>
   );

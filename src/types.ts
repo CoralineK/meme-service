@@ -7,8 +7,3 @@ export type MemeType = {
   width: number;
   height: number;
 };
-
-export type VoteType = {
-  meme: MemeType;
-  vote: string;
-};

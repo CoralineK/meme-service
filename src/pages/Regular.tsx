@@ -1,43 +1,25 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getMemes } from "../API";
-import { MemeType, VoteType } from "../types";
+import { MemeType } from "../types";
 import Memes from "../components/memes/Memes";
 import TabPanel from "../components/memes/TabPanel";
 import { selectMemes } from "../redux/reducer";
+import { useSelector } from "react-redux";
 
 export default function Regular() {
   const [memes, setMemes] = useState<MemeType[]>([]);
 
   const history = useHistory();
   const path = history.location.pathname.replace("/", "");
+  const getMemes = useSelector(selectMemes);
 
   useEffect(() => {
-    getMemes().then((result) => {
-      setMemes(result);
-    });
-  }, []);
-
-  console.log(selectMemes);
-
-  function handleVote({ meme, vote }: VoteType) {
-    const updateMemes = memes.map((m) =>
-      m.id === meme.id
-        ? vote === "upvote"
-          ? { ...m, upvote: m.upvote + 1 }
-          : { ...m, downvote: m.downvote + 1 }
-        : m
-    );
-    setMemes(updateMemes);
-  }
+    setMemes(getMemes);
+  }, [getMemes]);
 
   return (
     <TabPanel value={path} index={"regular"}>
-      <Memes
-        memes={memes}
-        handleUpvoteClick={handleVote}
-        handleDownvoteClick={handleVote}
-      />
+      <Memes memes={memes} />
     </TabPanel>
   );
 }
