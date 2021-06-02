@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { MemeType } from "../types";
-import Memes from "../components/memes/Memes";
-import TabPanel from "../components/memes/TabPanel";
 import { selectMemes } from "../redux/reducer";
 import { useSelector } from "react-redux";
+import { MemeType } from "../types";
+import Memes from "../components/memes/Memes";
 
 export default function Regular() {
   const [memes, setMemes] = useState<MemeType[]>([]);
+  const [start, setStart] = useState(5);
+  const [end, setEnd] = useState(10);
 
-  const history = useHistory();
-  const path = history.location.pathname.replace("/", "");
   const getMemes = useSelector(selectMemes);
 
   useEffect(() => {
-    setMemes(getMemes.filter((meme) => !meme.hot));
+    setMemes(getMemes.slice(0, 5));
   }, [getMemes]);
 
-  return (
-    <TabPanel value={path} index={"regular"}>
-      <Memes memes={memes} />
-    </TabPanel>
-  );
+  function getMoreMemes() {
+    setTimeout(() => {
+      setMemes(memes.concat(getMemes.slice(start, end)));
+    }, 1500);
+
+    setStart(start + 5);
+    setEnd(end + 5);
+  }
+
+  return <Memes memes={memes} getMoreMemes={getMoreMemes} />;
 }

@@ -1,7 +1,7 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Regular from "./pages/Regular";
 import Hot from "./pages/Hot";
-import Navigation from "./components/navigation";
+import Navigation from "./components/navigation/Navigation";
 
 export default function Router() {
   return (

@@ -53,6 +53,10 @@ export const memesSlice = createSlice({
 
 export const { addUpvote, addDownvote, setHot } = memesSlice.actions;
 
-export const selectMemes = (state: RootState) => state.memes.memes;
+export const selectMemes = (state: RootState) =>
+  state.memes.memes.filter((meme) => !meme.hot);
+
+export const selectHotMemes = (state: RootState) =>
+  state.memes.memes.filter((meme) => meme.hot);
 
 export default memesSlice.reducer;
