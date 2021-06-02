@@ -5,13 +5,11 @@ import { RootState } from "./store";
 
 interface MemesState {
   memes: [] | MemeType[];
-  hotMemes: [] | MemeType[];
   loading: "idle" | "loading" | "succeeded" | "failed";
 }
 
 const initialState = {
   memes: [],
-  hotMemes: [],
   loading: "idle",
 } as MemesState;
 
@@ -23,24 +21,20 @@ export const memesSlice = createSlice({
   name: "getmemes",
   initialState,
   reducers: {
-    addToHotMemes: (state) => {
-      state.hotMemes = state.memes.filter(
-        (meme) => meme.upvote - meme.downvote > 5
+    setHot: (state) => {
+      state.memes = state.memes.map((meme: MemeType) =>
+        meme.upvote - meme.downvote > 5
+          ? { ...meme, hot: true }
+          : { ...meme, hot: false }
       );
     },
     addUpvote: (state, id) => {
       state.memes.map(
         (meme: MemeType) => meme.id === id.payload && meme.upvote++
       );
-      state.hotMemes.map(
-        (meme: MemeType) => meme.id === id.payload && meme.upvote++
-      );
     },
     addDownvote: (state, id) => {
       state.memes.map(
-        (meme: MemeType) => meme.id === id.payload && meme.downvote++
-      );
-      state.hotMemes.map(
         (meme: MemeType) => meme.id === id.payload && meme.downvote++
       );
     },
@@ -57,9 +51,8 @@ export const memesSlice = createSlice({
   },
 });
 
-export const { addUpvote, addDownvote, addToHotMemes } = memesSlice.actions;
+export const { addUpvote, addDownvote, setHot } = memesSlice.actions;
 
 export const selectMemes = (state: RootState) => state.memes.memes;
-export const selectHotMemes = (state: RootState) => state.memes.hotMemes;
 
 export default memesSlice.reducer;

@@ -17,7 +17,6 @@ export default function Navigation({ children }: Props) {
     <>
       <AppBar color="default" position="static">
         <Tabs value={path} onChange={handleChange}>
-          <Tab label="home" value="" aria-controls="tabpanel-home" />
           <Tab
             label="regular"
             value="regular"

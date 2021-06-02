@@ -8,9 +8,8 @@ import {
 } from "@material-ui/core";
 import { ThumbDownRounded, ThumbUpRounded } from "@material-ui/icons";
 import { MemeType } from "../../types";
-import { addUpvote, addDownvote } from "../../redux/reducer";
+import { addUpvote, addDownvote, setHot } from "../../redux/reducer";
 import { useDispatch } from "react-redux";
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,11 +43,21 @@ export default function Meme({ meme }: Props) {
       <CardHeader title={meme.name} />
       <CardMedia className={classes.media} image={meme.url} title={meme.name} />
       <CardActions className={classes.actions}>
-        <IconButton onClick={() => dispatch(addUpvote(meme.id))}>
+        <IconButton
+          onClick={() => {
+            dispatch(addUpvote(meme.id));
+            dispatch(setHot());
+          }}
+        >
           <ThumbUpRounded />
         </IconButton>
         <p>{meme.upvote}</p>
-        <IconButton onClick={() => dispatch(addDownvote(meme.id))}>
+        <IconButton
+          onClick={() => {
+            dispatch(addDownvote(meme.id));
+            dispatch(setHot());
+          }}
+        >
           <ThumbDownRounded />
         </IconButton>
         <p>{meme.downvote}</p>

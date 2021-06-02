@@ -4,6 +4,5 @@ export type MemeType = {
   url: string;
   upvote: number;
   downvote: number;
-  width: number;
-  height: number;
+  hot: boolean;
 };

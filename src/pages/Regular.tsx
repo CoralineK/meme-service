@@ -14,7 +14,7 @@ export default function Regular() {
   const getMemes = useSelector(selectMemes);
 
   useEffect(() => {
-    setMemes(getMemes);
+    setMemes(getMemes.filter((meme) => !meme.hot));
   }, [getMemes]);
 
   return (
