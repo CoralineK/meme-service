@@ -3,14 +3,27 @@ import { getMemes } from "../API";
 import { MemeType } from "../types";
 import { RootState } from "./store";
 
+type loadingType = "idle" | "loading" | "succeeded" | "failed";
+
+type loadingTypes = {
+  [key: string]: loadingType;
+};
+
+const LOADING: loadingTypes = {
+  IDLE: "idle",
+  LOADING: "loading",
+  SUCCEEDED: "succeeded",
+  FAILED: "failed",
+};
+
 interface MemesState {
   memes: [] | MemeType[];
-  loading: "idle" | "loading" | "succeeded" | "failed";
+  loading: loadingType;
 }
 
 const initialState = {
   memes: [],
-  loading: "idle",
+  loading: LOADING.IDLE,
 } as MemesState;
 
 export const getMemesAsync = createAsyncThunk("memes/getMemes", () => {
@@ -42,10 +55,10 @@ export const memesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getMemesAsync.pending, (state) => {
-        state.loading = "loading";
+        state.loading = LOADING.LOADING;
       })
       .addCase(getMemesAsync.fulfilled, (state, action) => {
-        state.loading = "idle";
+        state.loading = LOADING.IDLE;
         state.memes = action.payload;
       });
   },
