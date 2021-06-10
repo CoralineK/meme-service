@@ -6,7 +6,7 @@ import {
   CardActions,
   IconButton,
 } from "@material-ui/core";
-import { ThumbDownRounded, ThumbUpRounded } from "@material-ui/icons";
+import { NotInterestedRounded, FavoriteRounded } from "@material-ui/icons";
 import { MemeType } from "../../types";
 import { addUpvote, addDownvote, setHot } from "../../redux/reducer";
 import { useDispatch } from "react-redux";
@@ -49,7 +49,7 @@ export default function Meme({ meme }: Props) {
             dispatch(setHot());
           }}
         >
-          <ThumbUpRounded />
+          <FavoriteRounded />
         </IconButton>
         <p>{meme.upvote}</p>
         <IconButton
@@ -58,9 +58,9 @@ export default function Meme({ meme }: Props) {
             dispatch(setHot());
           }}
         >
-          <ThumbDownRounded />
+          <NotInterestedRounded />
         </IconButton>
-        <p>{meme.downvote}</p>
+        <p>{-meme.downvote}</p>
       </CardActions>
     </Card>
   );

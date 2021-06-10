@@ -51,6 +51,7 @@ export const memesSlice = createSlice({
         (meme: MemeType) => meme.id === id.payload && meme.downvote++
       );
     },
+    update: () => {},
   },
   extraReducers: (builder) => {
     builder
