@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getMemes } from "../API";
+import { getMemes, getMeme, putMeme } from "../API";
 import { MemeType } from "../types";
 import { RootState } from "./store";
 
@@ -30,6 +30,10 @@ export const getMemesAsync = createAsyncThunk("memes/getMemes", () => {
   return getMemes();
 });
 
+export const getMemeAsync = createAsyncThunk("memes/getMeme", (id: string) => {
+  return getMeme(id);
+});
+
 export const memesSlice = createSlice({
   name: "getmemes",
   initialState,
@@ -43,15 +47,16 @@ export const memesSlice = createSlice({
     },
     addUpvote: (state, id) => {
       state.memes.map(
-        (meme: MemeType) => meme.id === id.payload && meme.upvote++
+        (meme: MemeType) =>
+          meme.id === id.payload && meme.upvote++ && putMeme(meme, meme.id)
       );
     },
     addDownvote: (state, id) => {
       state.memes.map(
-        (meme: MemeType) => meme.id === id.payload && meme.downvote++
+        (meme: MemeType) =>
+          meme.id === id.payload && meme.downvote++ && putMeme(meme, meme.id)
       );
     },
-    update: () => {},
   },
   extraReducers: (builder) => {
     builder
@@ -61,6 +66,9 @@ export const memesSlice = createSlice({
       .addCase(getMemesAsync.fulfilled, (state, action) => {
         state.loading = LOADING.IDLE;
         state.memes = action.payload;
+      })
+      .addCase(getMemeAsync.fulfilled, (state, action) => {
+        state.memes = [action.payload, ...state.memes];
       });
   },
 });

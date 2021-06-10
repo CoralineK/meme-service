@@ -15,8 +15,6 @@ export default function Regular() {
     setMemes(getMemes.slice(0, 5));
   }, [getMemes]);
 
-  useEffect(() => {}, []);
-
   function getMoreMemes() {
     setTimeout(() => {
       setMemes(memes.concat(getMemes.slice(start, end)));
@@ -26,9 +24,5 @@ export default function Regular() {
     setEnd(end + 5);
   }
 
-  return (
-    <>
-      <Memes memes={memes} getMoreMemes={getMoreMemes} />
-    </>
-  );
+  return <Memes memes={memes} getMoreMemes={getMoreMemes} />;
 }

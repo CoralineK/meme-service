@@ -6,6 +6,8 @@ import { v4 as uuid } from "uuid";
 import { MemeType } from "../types";
 import { useHistory } from "react-router-dom";
 import { postMeme } from "../API";
+import { useDispatch } from "react-redux";
+import { getMemeAsync } from "../redux/reducer";
 
 const Container = styled.div`
   width: 100%;
@@ -56,6 +58,7 @@ const ValidationSchema = Yup.object().shape({
 export default function AddMemeForm() {
   const id: string = uuid();
   const history = useHistory();
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   return (
@@ -73,6 +76,7 @@ export default function AddMemeForm() {
         validationSchema={ValidationSchema}
         onSubmit={(values: MemeType) => {
           postMeme(values);
+          dispatch(getMemeAsync(values.id));
           history.push("regular");
         }}
       >

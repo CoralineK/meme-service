@@ -10,6 +10,7 @@ import { NotInterestedRounded, FavoriteRounded } from "@material-ui/icons";
 import { MemeType } from "../../types";
 import { addUpvote, addDownvote, setHot } from "../../redux/reducer";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +38,10 @@ type Props = {
 export default function Meme({ meme }: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setHot());
+  }, [dispatch]);
 
   return (
     <Card className={classes.card}>
