@@ -6,7 +6,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * [Introduction](#introduction)
 * [Technologies](#technologies)
 * [State managment](#statemanagnent)
-* [Demo](#demo)
 * [Setup](#setup)
 
 ### Introduction
@@ -28,12 +27,6 @@ Libraries:
 ### State management
 
 I am using Redux Toolkit to state management.
-
-### Demo
-
-You can check out demo of project [here]().
-
-### OR
 
 ### Setup
 To run this project, install it locally using yarn:
