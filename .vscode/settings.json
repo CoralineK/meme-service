@@ -1,6 +1,5 @@
 {
     "npm.packageManager": "yarn",
     "eslint.packageManager": "yarn",
-    "git.ignoreLimitWarning": true,
-    "editor.fontSize": 18
+    "git.ignoreLimitWarning": true
 }

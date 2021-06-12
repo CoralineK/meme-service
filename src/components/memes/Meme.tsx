@@ -1,16 +1,17 @@
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import {
   Card,
+  CardActions,
   CardHeader,
   CardMedia,
-  CardActions,
   IconButton,
 } from "@material-ui/core";
-import { NotInterestedRounded, FavoriteRounded } from "@material-ui/icons";
-import { MemeType } from "../../types";
-import { addUpvote, addDownvote, setHot } from "../../redux/reducer";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { ThumbDownRounded, ThumbUpRounded } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { addDownvote, addUpvote, setHot } from "../../redux/reducer";
+import { MemeType } from "../../types";
+import { putMeme } from "../../API";
+import { useEffect, useState } from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,10 +39,11 @@ type Props = {
 export default function Meme({ meme }: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [currentMeme, setCurrentMeme] = useState<MemeType>(meme);
 
   useEffect(() => {
-    dispatch(setHot());
-  }, [dispatch]);
+    putMeme(currentMeme, currentMeme.id);
+  }, [currentMeme]);
 
   return (
     <Card className={classes.card}>
@@ -49,21 +51,31 @@ export default function Meme({ meme }: Props) {
       <CardMedia className={classes.media} image={meme.url} title={meme.name} />
       <CardActions className={classes.actions}>
         <IconButton
-          onClick={() => {
+          onClick={(e: any) => {
             dispatch(addUpvote(meme.id));
             dispatch(setHot());
+            setCurrentMeme({
+              ...meme,
+              upvote: meme.upvote + 1,
+              hot: meme.upvote + 1 - meme.downvote > 5 ? true : false,
+            });
           }}
         >
-          <FavoriteRounded />
+          <ThumbUpRounded />
         </IconButton>
         <p>{meme.upvote}</p>
         <IconButton
           onClick={() => {
             dispatch(addDownvote(meme.id));
             dispatch(setHot());
+            setCurrentMeme({
+              ...meme,
+              downvote: meme.downvote + 1,
+              hot: meme.upvote - (meme.downvote + 1) > 5 ? true : false,
+            });
           }}
         >
-          <NotInterestedRounded />
+          <ThumbDownRounded />
         </IconButton>
         <p>{-meme.downvote}</p>
       </CardActions>

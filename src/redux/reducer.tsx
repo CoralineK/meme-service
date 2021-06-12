@@ -47,14 +47,12 @@ export const memesSlice = createSlice({
     },
     addUpvote: (state, id) => {
       state.memes.map(
-        (meme: MemeType) =>
-          meme.id === id.payload && meme.upvote++ && putMeme(meme, meme.id)
+        (meme: MemeType) => meme.id === id.payload && meme.upvote++
       );
     },
     addDownvote: (state, id) => {
       state.memes.map(
-        (meme: MemeType) =>
-          meme.id === id.payload && meme.downvote++ && putMeme(meme, meme.id)
+        (meme: MemeType) => meme.id === id.payload && meme.downvote++
       );
     },
   },

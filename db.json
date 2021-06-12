@@ -788,7 +788,7 @@
       "id": "61516",
       "name": "Philosoraptor",
       "url": "https://i.imgflip.com/1bgs.jpg",
-      "upvote": 7,
+      "upvote": 0,
       "downvote": 0,
       "hot": false
     },
@@ -798,14 +798,6 @@
       "url": "https://i.imgflip.com/9iz9.jpg",
       "upvote": 6,
       "downvote": 0,
-      "hot": false
-    },
-    {
-      "id": "6e60eb28-01a7-4df3-93d5-1a2e50afc029",
-      "name": "Yoda",
-      "url": "https://images.theconversation.com/files/177834/original/file-20170712-14488-19lw3sc.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip",
-      "upvote": 8,
-      "downvote": 3,
       "hot": true
     }
   ]
