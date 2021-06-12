@@ -23,6 +23,9 @@ Libraries:
 - React
 - React Router - used to route between multiple pages in the app. Routing logic can be found in the `Router.tsx` file.
 - Styled Components - CSS-in-JS library used to style React apps.
+- json-server - used to build fake database.
+- Formik and YUP - used to create form and validate it.
+- react-infinite-scroll-component - used to make scrolling more efficient.
 
 ### State management
 
